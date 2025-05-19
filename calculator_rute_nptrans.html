@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ro">
 <head>
@@ -71,7 +70,14 @@
     </select>
 
     <label for="destinatie">Destinație</label>
-    <input type="text" id="destinatie" placeholder="Ex: Vilnius" required>
+    <select id="destinatie" required>
+      <option value="">Alege o destinație</option>
+      <option value="vilnius">Vilnius</option>
+      <option value="budapesta">Budapesta</option>
+      <option value="berlin">Berlin</option>
+      <option value="sofia">Sofia</option>
+      <option value="viena">Viena</option>
+    </select>
 
     <button onclick="calculeaza()">Calculează preț estimativ</button>
     <div id="result"></div>
@@ -94,7 +100,7 @@
       const marfa = document.getElementById("marfa").value.trim();
       const cantitate = parseFloat(document.getElementById("cantitate").value);
       const vehicul = document.getElementById("vehicul").value;
-      const destinatie = document.getElementById("destinatie").value.trim().toLowerCase();
+      const destinatie = document.getElementById("destinatie").value;
 
       const dist = distante[destinatie];
       const costPerKm = pretPeKm[vehicul];
