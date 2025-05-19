@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculator Rute - NP Trans</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background-color: #f4f6f8;
+      color: #333;
+    }
+    h2 {
+      text-align: center;
+    }
+    .form-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin: 15px 0 5px;
+      font-weight: bold;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 20px;
+      padding: 12px 20px;
+      background-color: #0078d4;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      width: 100%;
+    }
+    #result {
+      margin-top: 30px;
+      text-align: center;
+      font-size: 1.2em;
+      color: #0078d4;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Calculator Rute - Estimare Cost</h2>
+    <label for="marfa">Tipul de marfă</label>
+    <input type="text" id="marfa" required>
+
+    <label for="cantitate">Cantitate (kg)</label>
+    <input type="number" id="cantitate" required>
+
+    <label for="vehicul">Tip vehicul preferat</label>
+    <select id="vehicul" required>
+      <option value="">Alege...</option>
+      <option value="van">Van</option>
+      <option value="camion">Camion</option>
+      <option value="tir">TIR</option>
+    </select>
+
+    <label for="destinatie">Destinație</label>
+    <input type="text" id="destinatie" placeholder="Ex: Vilnius" required>
+
+    <button onclick="calculeaza()">Calculează preț estimativ</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    function calculeaza() {
+      const distante = {
+        "vilnius": 1750,
+        "budapesta": 835,
+        "berlin": 1650,
+        "sofia": 360,
+        "viena": 1070
+      };
+      const pretPeKm = {
+        "van": 0.9,
+        "camion": 1.2,
+        "tir": 1.5
+      };
+      const marfa = document.getElementById("marfa").value.trim();
+      const cantitate = parseFloat(document.getElementById("cantitate").value);
+      const vehicul = document.getElementById("vehicul").value;
+      const destinatie = document.getElementById("destinatie").value.trim().toLowerCase();
+
+      const dist = distante[destinatie];
+      const costPerKm = pretPeKm[vehicul];
+      const resultDiv = document.getElementById("result");
+
+      if (!dist || !costPerKm || isNaN(cantitate)) {
+        resultDiv.textContent = "Datele introduse sunt incomplete sau incorecte.";
+        return;
+      }
+
+      const costEstimativ = dist * costPerKm + (cantitate * 0.02);
+      resultDiv.textContent = `Cost estimativ: €${costEstimativ.toFixed(2)}`;
+    }
+  </script>
+</body>
+</html>
